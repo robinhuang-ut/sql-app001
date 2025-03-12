@@ -50,24 +50,26 @@ const Name = sequelize.define('Name', {
   // table if it does not exist
   
   sequelize.sync().then(() => {
-    Name.create({
-      fName: 'Kyler',
-      lName: 'Odin',
-    }).then(() => {
-      console.log('Kyler Odin created');
+    // return all first names only
+    Name.findAll({
+      attributes: ['fName'],
+    }).then((data) => {
+      console.log('All first names');
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].fName);
+      }
     });
   
-    Name.create({
-      fName: 'Grier',
-      lName: 'Garrick',
-    }).then(() => {
-      console.log('Grier Garrick created');
-    });
-  
-    Name.create({
-      fName: 'Kolby',
-      lName: 'Greyson',
-    }).then(() => {
-      console.log('Kolby Greyson created');
+    // return all first names where id == 2
+    Name.findAll({
+      attributes: ['fName'],
+      where: {
+        id: 2,
+      },
+    }).then((data) => {
+      console.log('All first names where id == 2');
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i].fName);
+      }
     });
   });
