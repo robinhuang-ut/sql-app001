@@ -38,34 +38,36 @@ const User = sequelize.define('User', {
   // relationship on "Task" via an automatically generated "UserId" field
   
   Task.belongsTo(User);
+
+  // Define a "Name" model
+
+const Name = sequelize.define('Name', {
+    fName: Sequelize.STRING, // first Name
+    lName: Sequelize.STRING, // Last Name
+  });
   
   // synchronize the Database with our models and automatically add the
   // table if it does not exist
   
   sequelize.sync().then(() => {
-    // Create user "Jason Bourne"
-    User.create({
-      fullName: 'Jason Bourne',
-      title: 'developer',
-    }).then((user) => {
-      console.log('user created');
+    Name.create({
+      fName: 'Kyler',
+      lName: 'Odin',
+    }).then(() => {
+      console.log('Kyler Odin created');
+    });
   
-      // Create "Task 1" for the new user
-      Task.create({
-        title: 'Task 1',
-        description: 'Task 1 description',
-        UserId: user.id, // set the correct Userid foreign key
-      }).then(() => {
-        console.log('Task 1 created');
-      });
+    Name.create({
+      fName: 'Grier',
+      lName: 'Garrick',
+    }).then(() => {
+      console.log('Grier Garrick created');
+    });
   
-      // Create "Task 2" for the new user
-      Task.create({
-        title: 'Task 2',
-        description: 'Task 2 description',
-        UserId: user.id, // set the correct Userid foreign key
-      }).then(() => {
-        console.log('Task 2 created');
-      });
+    Name.create({
+      fName: 'Kolby',
+      lName: 'Greyson',
+    }).then(() => {
+      console.log('Kolby Greyson created');
     });
   });
