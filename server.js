@@ -50,16 +50,10 @@ const Name = sequelize.define('Name', {
   // table if it does not exist
   
   sequelize.sync().then(() => {
-    // update User 2's last name to "James"
-    // NOTE: this also updates the "updatedAt field"
-    Name.update(
-      {
-        lName: 'James',
-      },
-      {
-        where: { id: 2 }, // only update user with id == 2
-      }
-    ).then(() => {
-      console.log('successfully updated user 2');
+    // remove User 3 from the database
+    Name.destroy({
+      where: { id: 3 }, // only remove user with id == 3
+    }).then(() => {
+      console.log('successfully removed user 3');
     });
   });
