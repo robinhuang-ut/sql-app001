@@ -15,11 +15,27 @@ const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
   },
 });
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch((err) => {
-    console.log('Unable to connect to the database:', err);
+// Define a "Project" model
+
+const Project = sequelize.define('Project', {
+    title: Sequelize.STRING,
+    description: Sequelize.TEXT,
+  });
+  
+  // synchronize the Database with our models and automatically add the
+  // table if it does not exist
+  
+  sequelize.sync().then(() => {
+    // create a new "Project" record and add it to the database table
+    Project.create({
+      title: 'Project1',
+      description: 'First Project',
+    })
+      .then((project) => {
+        // you can now access the newly created Project via the variable project
+        console.log('success!');
+      })
+      .catch((error) => {
+        console.log('something went wrong!');
+      });
   });
