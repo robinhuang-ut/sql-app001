@@ -50,26 +50,16 @@ const Name = sequelize.define('Name', {
   // table if it does not exist
   
   sequelize.sync().then(() => {
-    // return all first names only
-    Name.findAll({
-      attributes: ['fName'],
-    }).then((data) => {
-      console.log('All first names');
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i].fName);
-      }
-    });
-  
-    // return all first names where id == 2
-    Name.findAll({
-      attributes: ['fName'],
-      where: {
-        id: 2,
+    // update User 2's last name to "James"
+    // NOTE: this also updates the "updatedAt field"
+    Name.update(
+      {
+        lName: 'James',
       },
-    }).then((data) => {
-      console.log('All first names where id == 2');
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i].fName);
+      {
+        where: { id: 2 }, // only update user with id == 2
       }
+    ).then(() => {
+      console.log('successfully updated user 2');
     });
   });
